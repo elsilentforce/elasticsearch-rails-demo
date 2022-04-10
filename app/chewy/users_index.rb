@@ -7,4 +7,9 @@ class UsersIndex < Chewy::Index
       }
     }
   }
+
+  index_scope User
+  field :first_name
+  field :last_name
+  field :email, analyzer: 'email'
 end
