@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14.2-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+  elasticsearch:
+    image: elasticsearch:8.1.2
+    restart: always
+    environment:
+    - 'discovery.type=single-node'
+    - ELASTIC_PASSWORD=pass123
+    ports:
+    - 9200:9200
+    - 9300:9300
+    volumes:
+      - elasticsearch:/usr/share/elasticsearch/data
+volumes:
+  postgres:
+    driver: local
+  elasticsearch:
+    driver: local
