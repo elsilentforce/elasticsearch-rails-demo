@@ -15,9 +15,13 @@ services:
     image: elasticsearch:7.17.2
     restart: always
     environment:
-    - 'discovery.type=single-node'
+      - 'discovery.type=single-node'
     ports:
-    - 9200:9200
+      - 9200:9200
+    volumes:
+      - elasticsearch:/usr/share/elasticsearch/data
 volumes:
   postgres:
+    driver: local
+  elasticsearch:
     driver: local

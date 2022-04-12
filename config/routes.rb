@@ -3,4 +3,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  scope :api do
+    scope :v1 do
+      scope :users do
+        get '/search', to: 'api/v1/users#search'
+      end
+    end
+  end
 end
