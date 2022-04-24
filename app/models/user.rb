@@ -10,4 +10,51 @@ class User < ApplicationRecord
       }
     )
   end
+
+  def self.custom_search(query)
+    result = UsersIndex.query({
+      bool: {
+        should: [
+          {
+            match: {
+              first_name: {
+                query: query,
+                operator: :and,
+                analyzer: :english
+              }
+            }
+          }
+        ]
+      }
+    }).objects
+  end
+
+  def self.complex_search(query)
+    result = UsersIndex.query({
+      bool: {
+        should: [
+          {
+            match: {
+              first_name: {
+                query: query,
+                operator: :and,
+                analyzer: :english
+              },
+            }
+          },
+          {
+            match: {
+              last_name: {
+                query: query,
+                operator: :and,
+                analyzer: :english,
+                boost: 3
+              }
+            }
+          }
+        ]
+      }
+    }).objects
+  end
+
 end

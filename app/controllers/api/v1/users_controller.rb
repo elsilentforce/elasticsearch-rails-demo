@@ -3,11 +3,7 @@ module Api
     class UsersController < ApplicationController
 
       def search
-        begin
-          @search_result = User.search(search_params[:query]).objects
-        rescue
-          @search_result = JSON.new
-        end
+        @search_result = User.custom_search(search_params[:query])
         
         render json: @search_result, status: :ok
       end
